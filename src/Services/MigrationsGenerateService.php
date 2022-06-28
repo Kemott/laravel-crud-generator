@@ -3,7 +3,8 @@
 
     use Illuminate\Console\Command;
     use Illuminate\Support\Str;
-    use Illuminate\Support\Facades\Storage;
+
+    use TomaszBurzynski\CrudGenerator\Services\Classes\Migration;
 
     class MigrationsGenerateService
     {

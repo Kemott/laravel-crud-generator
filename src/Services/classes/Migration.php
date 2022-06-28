@@ -1,5 +1,5 @@
 <?php
-    namespace TomaszBurzynski\CrudGenerator\Services;
+    namespace TomaszBurzynski\CrudGenerator\Services\Classes;
 
     use TomaszBurzynski\CrudGenerator\Enums\IdTypes;
 
