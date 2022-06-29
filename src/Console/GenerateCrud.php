@@ -4,7 +4,7 @@ namespace TomaszBurzynski\CrudGenerator\Console;
 
 use Illuminate\Console\Command;
 
-use TomaszBurzynski\CrudGenerator\Services\MigrationsGenerateService;
+use TomaszBurzynski\CrudGenerator\Services\CrudGenerationService;
 
 class GenerateCrud extends Command
 {
@@ -27,10 +27,9 @@ class GenerateCrud extends Command
      *
      * @return int
      */
-    public function handle(MigrationsGenerateService $migrationsService)
+    public function handle(CrudGenerationService $crudService)
     {
-        if(!$migrationsService->getModels($this)) return 0;
-        $migrationsService->generateMigrations($this);
+        $crudService->generateCRUD();
         return 0;
     }
 }

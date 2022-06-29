@@ -1,43 +1,19 @@
 <?php
     namespace TomaszBurzynski\CrudGenerator\Services;
+    
+    use TomaszBurzynski\CrudGenerator\Services\Interfaces\GenerateService;
+    use TomaszBurzynski\CrudGenerator\Services\Classes\Collections\FileModelCollection;
 
-    use Illuminate\Console\Command;
-    use Illuminate\Support\Str;
-
-    use TomaszBurzynski\CrudGenerator\Services\Classes\Migration;
-
-    class MigrationsGenerateService
+    class MigrationsGenerateService implements GenerateService
     {
-        private $models;
 
-        public function getModels(Command $command){
-            $command->info('Looking for models from config file...');
-            if(count(config('crudgenerator.models')) > 0){
-                $command->info('Models found');
-                $this->models = config('crudgenerator.models');
-                return true;
-            }else{
-                $command->info('No models to generate crud');
-                return false;
-            }
-        }
-        
-        public function generateMigrations(Command $command)
+        public function generateAll($config)
         {
-            $command->info('Creating list of migrations..');
-            foreach($this->models as $name => $data)
+            $collection = new FileModelCollection();
+            foreach($config as $migration)
             {
-                $migration = new Migration(Str::plural(Str::lower($name)), $data['columns']);
-                $command->info('Generating '.$name.' migration');
-                $this->generateMigration($migration, $command);
+                $collection->push($migration);
             }
-        }
-
-        private function generateMigration(Migration $migration, Command $command)
-        {
-            $command->info($migration->fileName);
-            $migration->generateFile();
-            $migration->saveFile();
-            $command->info('Wygenerowano');
+            $collection->generateFiles();
         }
     }
