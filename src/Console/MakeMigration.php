@@ -3,6 +3,7 @@
 namespace Kemott\CrudGenerator\Console;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Kemott\CrudGenerator\Enums\IdTypes;
@@ -11,7 +12,7 @@ use Kemott\CrudGenerator\Misc\MigrationColumnsTable;
 class MakeMigration extends GeneratorCommand
 {
     protected $name = 'make:crud:migration';
-    protected $signature = 'make:crud:migration {name} {idType} {column*} {--T|timestamps}';
+    protected $signature = 'make:crud:migration {name} {idType} {column*} {--T|timestamps} {--U|usages=}';
     protected $description = 'Create filled migration';
     protected $type = 'Migration';
 
@@ -59,9 +60,13 @@ class MakeMigration extends GeneratorCommand
 
     private function changePlaceholders(string $content): string
     {
-        $usages = [
-
-        ];
+        if($this->option('usages') != null)
+        {
+            $usages = Str::of($this->option('usages'))->explode(";");
+        }else
+        {
+            $usages = [];
+        }
 
         return Str::of($content)->swap([
             "{{useSection}}" => $this->getUseSection($usages),
@@ -72,7 +77,7 @@ class MakeMigration extends GeneratorCommand
         ]);
     }
 
-    private function getUseSection(array $usages): string
+    private function getUseSection(array|Collection $usages): string
     {
         $result = '';
         foreach($usages as $usage)
