@@ -1,15 +1,19 @@
 <?php
 
-namespace TomaszBurzynski\CrudGenerator\Console;
+namespace Kemott\CrudGenerator\Console;
 
+use Illuminate\Console\GeneratorCommand;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
+use Kemott\CrudGenerator\Enums\IdTypes;
+use Kemott\CrudGenerator\Misc\MigrationColumnsTable;
 
-class MakeMigration extends \Illuminate\Console\GeneratorCommand
+class MakeMigration extends GeneratorCommand
 {
     protected $name = 'make:crud:migration';
+    protected $signature = 'make:crud:migration {name} {idType} {column*} {--T|timestamps}';
     protected $description = 'Create filled migration';
     protected $type = 'Migration';
-    protected array $usages = [];
 
     /**
      * @inheritDoc
@@ -29,6 +33,15 @@ class MakeMigration extends \Illuminate\Console\GeneratorCommand
         return date('Y_m_d_His').'_create_'.Str::plural(Str::lower(parent::getNameInput())).'_table.php';
     }
 
+    protected function getIdTypeInput(): ?IdTypes
+    {
+        return match ($this->argument('idType')) {
+            'standard' => IdTypes::standard,
+            'uuid' => IdTypes::uuid,
+            default => null,
+        };
+    }
+
     public function handle()
     {
         parent::handle();
@@ -46,15 +59,78 @@ class MakeMigration extends \Illuminate\Console\GeneratorCommand
 
     private function changePlaceholders(string $content): string
     {
-        $newContent = $this->changeUseSection($content);
-        return $newContent;
+        $usages = [
+
+        ];
+
+        return Str::of($content)->swap([
+            "{{useSection}}" => $this->getUseSection($usages),
+            "{{tableName}}" => Str::plural(Str::lower(parent::getNameInput())),
+            "{{id}}" => $this->getIdLine(),
+            "{{columns}}" => $this->getColumnsLines(),
+            "{{timestamps}}" => $this->getTimestampsLine(),
+        ]);
     }
 
-    private function changeUseSection(string $content): string
+    private function getUseSection(array $usages): string
     {
-        $newContent = $content;
-        $replace = '';
-        return Str::replace("{{useSection}}", $replace, $newContent);
+        $result = '';
+        foreach($usages as $usage)
+        {
+            $result .= "use ".$usage.";\n\t";
+        }
+        return $result;
+    }
+
+    private function getIdLine(): string
+    {
+        return "\$table->".$this->getIdTypeInput()->value.";";
+    }
+
+    private function getColumnsLines(): string
+    {
+        $result = '';
+        $columns = $this->mapColumnArguments();
+        foreach($columns as $column)
+        {
+            $result .= "\$table->".$column['type']."(";
+            if(Arr::has($column, 'params'))
+            {
+                $result .= $column['params'];
+            }
+            $result .= ")";
+            if(Arr::hasAny($column, 'modifiers'))
+            {
+                foreach($column['modifiers'] as $modifier)
+                {
+                    $result .= "->".$modifier['type']."(";
+                    if(Arr::hasAny($modifier,'params'))
+                    {
+                        $result .= $modifier['params'];
+                    }
+                    $result .= ")";
+                }
+            }
+            $result .= ";\n\t\t\t\t";
+        }
+        return Str::of($result)->substr(0, -5);
+    }
+
+    private function getTimestampsLine(): string
+    {
+        if($this->option('timestamps')) return "\$table->timestamps();";
+        else return '';
+    }
+
+    private function mapColumnArguments(): array
+    {
+        $args = $this->argument('column');
+        $columns = [];
+        foreach($args as $arg) {
+            $tab = new MigrationColumnsTable($arg);
+            $columns[] = $tab->getTable();
+        }
+        return $columns;
     }
 
 

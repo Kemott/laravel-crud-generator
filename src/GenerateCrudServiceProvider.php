@@ -1,16 +1,16 @@
 <?php
 
-namespace TomaszBurzynski\CrudGenerator;
+namespace Kemott\CrudGenerator;
 
 use Illuminate\Support\ServiceProvider;
 
-use TomaszBurzynski\CrudGenerator\Console\GenerateCrud;
-use TomaszBurzynski\CrudGenerator\Console\MakeMigration;
-use TomaszBurzynski\CrudGenerator\Services\ConfigParseService;
-use TomaszBurzynski\CrudGenerator\Services\ControllersGenerateService;
-use TomaszBurzynski\CrudGenerator\Services\CrudGenerationService;
-use TomaszBurzynski\CrudGenerator\Services\MigrationsGenerateService;
-use TomaszBurzynski\CrudGenerator\Services\ViewsGenerateService;
+use Kemott\CrudGenerator\Console\GenerateCrud;
+use Kemott\CrudGenerator\Console\MakeMigration;
+use Kemott\CrudGenerator\Services\ConfigParseService;
+use Kemott\CrudGenerator\Services\ControllersGenerateService;
+use Kemott\CrudGenerator\Services\CrudGenerationService;
+use Kemott\CrudGenerator\Services\MigrationsGenerateService;
+use Kemott\CrudGenerator\Services\ViewsGenerateService;
 
 class GenerateCrudServiceProvider extends ServiceProvider
 {

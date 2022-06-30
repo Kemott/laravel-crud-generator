@@ -1,10 +1,10 @@
 <?php
 
-namespace TomaszBurzynski\CrudGenerator\Console;
+namespace Kemott\CrudGenerator\Console;
 
 use Illuminate\Console\Command;
 
-use TomaszBurzynski\CrudGenerator\Services\CrudGenerationService;
+use Kemott\CrudGenerator\Services\CrudGenerationService;
 
 class GenerateCrud extends Command
 {

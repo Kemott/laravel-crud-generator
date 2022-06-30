@@ -1,7 +1,7 @@
 <?php
-    namespace TomaszBurzynski\CrudGenerator\Services;
+    namespace Kemott\CrudGenerator\Services;
 
-    use TomaszBurzynski\CrudGenerator\Services\Interfaces\GenerateService;
+    use Kemott\CrudGenerator\Services\Interfaces\GenerateService;
 
     class ViewsGenerateService implements GenerateService
     {

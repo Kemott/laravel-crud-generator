@@ -1,9 +1,9 @@
 <?php
-    namespace TomaszBurzynski\CrudGenerator\Services;
+    namespace Kemott\CrudGenerator\Services;
 
-use TomaszBurzynski\CrudGenerator\Enums\DatabaseRelations;
-use TomaszBurzynski\CrudGenerator\Enums\IdTypes;
-use TomaszBurzynski\CrudGenerator\Services\Classes\Models\Migration;
+use Kemott\CrudGenerator\Enums\DatabaseRelations;
+use Kemott\CrudGenerator\Enums\IdTypes;
+use Kemott\CrudGenerator\Services\Classes\Models\Migration;
 
     class ConfigParseService
     {
@@ -34,7 +34,6 @@ use TomaszBurzynski\CrudGenerator\Services\Classes\Models\Migration;
             if(count(config('crudgenerator.models')) > 0){
                 $this->models = config('crudgenerator.models');
                 $this->models = $this->mergeWithDefaults($this->models);
-                print_r($this->models);
                 return true;
             }else{
                 return false;

@@ -1,5 +1,5 @@
 {
-    "name": "tomaszburzynski/crudgenerator",
+    "name": "kemott/crudgenerator",
     "description": "Easy crud generator for laravel projects",
     "type": "library",
     "license": "Apache-2.0",
@@ -12,23 +12,23 @@
     ],
     "autoload": {
         "psr-4": {
-            "TomaszBurzynski\\CrudGenerator\\": "src"
+            "Kemott\\CrudGenerator\\": "src"
         }
     },
     "autoload-dev": {
         "ps-4": {
-            "TomaszBurzynski\\CrudGenerator\\Tests\\": "tests"
+            "Kemott\\CrudGenerator\\Tests\\": "tests"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "TomaszBurzynski\\CrudGenerator\\GenerateCrudServiceProvider"
+                "Kemott\\CrudGenerator\\GenerateCrudServiceProvider"
             ]
         }
     },
     "require": {
-        "php": "^8.0"
+        "php": ">8.0"
     },
     "require-dev": {
         "orchestra/testbench": "^7.5",

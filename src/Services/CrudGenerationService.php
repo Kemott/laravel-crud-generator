@@ -1,5 +1,5 @@
 <?php
-    namespace TomaszBurzynski\CrudGenerator\Services;
+    namespace Kemott\CrudGenerator\Services;
 
     class CrudGenerationService
     {

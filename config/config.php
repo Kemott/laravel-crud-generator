@@ -1,7 +1,7 @@
 <?php
 
-use TomaszBurzynski\CrudGenerator\Enums\DatabaseRelations;
-use TomaszBurzynski\CrudGenerator\Enums\IdTypes;
+use Kemott\CrudGenerator\Enums\DatabaseRelations;
+use Kemott\CrudGenerator\Enums\IdTypes;
 
 return [
     /**
@@ -11,7 +11,7 @@ return [
         'User' => [ //Example model to create, based on default laravel user
             'columns' => [ //Columns for model
                 'id' => [ //Primary Key column
-                    'type' =>  IdTypes::standard, //Type of primary key, from TomaszBurzynski\CrudGenerator\Enums\IdTypes enum        
+                    'type' =>  IdTypes::standard, //Type of primary key, from Kemott\CrudGenerator\Enums\IdTypes enum        
                 ],
                 'name' => [ //Column name
                     'type' => 'string', //For complete list of types go to documentation. Default 'string'.

@@ -1,5 +1,5 @@
 <?php
-    namespace TomaszBurzynski\CrudGenerator\Enums;
+    namespace Kemott\CrudGenerator\Enums;
 
     enum DatabaseRelations
     {

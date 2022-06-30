@@ -1,8 +1,8 @@
 <?php
 
-namespace TomaszBurzynski\CrudGenerator\Tests;
+namespace Kemott\CrudGenerator\Tests;
 
-use TomaszBurzynski\CrudGenerator\GenerateCrudServiceProvider;
+use Kemott\CrudGenerator\GenerateCrudServiceProvider;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {

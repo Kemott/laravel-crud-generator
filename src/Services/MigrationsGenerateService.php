@@ -1,8 +1,8 @@
 <?php
-    namespace TomaszBurzynski\CrudGenerator\Services;
+    namespace Kemott\CrudGenerator\Services;
     
-    use TomaszBurzynski\CrudGenerator\Services\Interfaces\GenerateService;
-    use TomaszBurzynski\CrudGenerator\Services\Classes\Collections\FileModelCollection;
+    use Kemott\CrudGenerator\Services\Interfaces\GenerateService;
+    use Kemott\CrudGenerator\Services\Classes\Collections\FileModelCollection;
 
     class MigrationsGenerateService implements GenerateService
     {
